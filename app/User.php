@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Mail\NewUserWelcomeMail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Mail;
 
 class User extends Authenticatable
 {
@@ -41,6 +43,8 @@ class User extends Authenticatable
                 'url' => '',
                 'image' => '',
                 ]);
+
+            Mail::to($user->email)->send(new NewUserWelcomeMail());
 
         });
     }
